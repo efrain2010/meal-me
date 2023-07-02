@@ -1,4 +1,4 @@
 node_modules/*
-./src/public/dist/*
+public/dist/*
 *.log
 .env

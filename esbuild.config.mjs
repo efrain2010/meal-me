@@ -1,10 +1,16 @@
 import dotenv from 'dotenv';
 import esbuild from 'esbuild';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const OUTDIR = "./public/dist";
 
 dotenv.config();
 
-let ctx = await esbuild.context({
-  entryPoints: ["./src/server.tsx"],
+const ctx = await esbuild.context({
+  entryPoints: [path.resolve(__dirname, "./src/server.tsx"), path.resolve(__dirname, "./src/client.tsx")],
   logLevel: "info",
   bundle: true,
   minify: false,
@@ -15,13 +21,17 @@ let ctx = await esbuild.context({
     "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
   },
   tsconfig: "tsconfig.json",
-  outdir: "./src/public/dist",
+  outdir: OUTDIR,
   external: ['express'],
   jsxFactory: 'React.createElement',
   jsxFragment: 'React.Fragment',
   treeShaking: true,
-  loader: {".ts": "ts", ".tsx": "tsx"}
+  loader: { ".ts": "ts", ".tsx": "tsx" },
 })
 .catch(() => process.exit(1));
 
 await ctx.watch();
+
+let { host, port } = ctx.serve({
+  servedir: OUTDIR
+});
