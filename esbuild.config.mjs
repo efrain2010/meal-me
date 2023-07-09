@@ -19,7 +19,7 @@ const handleLogError = (error) => {
 }
 
 const buildConfig = {
-  entryPoints: [ path.resolve(__dirname, "./src/server.tsx"), path.resolve(__dirname, "./src/client.tsx") ],
+  entryPoints: [ path.resolve(__dirname, "./src/server.ts") ],
   outdir: OUTDIR,
   logLevel: "info",
   bundle: true,

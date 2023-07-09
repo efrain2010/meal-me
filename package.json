@@ -9,6 +9,7 @@
     "express": "^4.18.2"
   },
   "dependencies": {
+    "@emotion/is-prop-valid": "^1.2.1",
     "dotenv": "^16.1.4",
     "express": "^4.18.2",
     "react": "^18.2.0",
@@ -24,6 +25,7 @@
     "@types/react-dom": "^18.2.4",
     "@types/react-router-dom": "^5.3.3",
     "@types/styled-components": "^5.1.26",
+    "concurrently": "^8.2.0",
     "esbuild": "^0.17.19",
     "esbuild-envfile-plugin": "^1.0.5",
     "nodemon": "^2.0.22",
@@ -33,6 +35,6 @@
   "scripts": {
     "build": "node esbuild.config.mjs",
     "watch": "node esbuild.config.mjs --watch",
-    "start": "nodemon ./public/dist/server.js"
+    "start": "concurrently \"nodemon ./public/dist/server.js\" \"esbuild --watch ./src/client.tsx --outdir=./public/dist --bundle\""
   }
 }
