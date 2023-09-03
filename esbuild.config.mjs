@@ -1,5 +1,8 @@
 import dotenv from 'dotenv';
 import esbuild from 'esbuild';
+import autoprefixer from 'autoprefixer';
+import tailwindCss from 'tailwindcss';
+import postCssPlugin from 'esbuild-style-plugin';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { argv } from 'process';
@@ -36,6 +39,11 @@ const buildConfig = {
   jsxFragment: 'React.Fragment',
   treeShaking: true,
   loader: { ".ts": "ts", ".tsx": "tsx" },
+  plugins: [ postCssPlugin({ 
+    postcss: {
+      plugins: [tailwindCss, autoprefixer]
+    }
+  })]
 };
 
 if (isWatchMode) {
