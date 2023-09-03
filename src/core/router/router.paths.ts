@@ -1,7 +1,11 @@
 export const RouterPaths = () => {
+  const crudPath = "crud";
+
   return {
     home: "/",
-    ingredients: "/ingredients",
+
+    // CRUD Urls
+    crudIngredients: `${crudPath}/ingredients`,
   };
 };
 
