@@ -6,11 +6,7 @@ import { StaticRouter } from "react-router-dom/server";
 import { App } from "../components/App";
 import isValidProp from "@emotion/is-prop-valid";
 
-const IS_DEV_MODE = process.env.NODE_ENV === "development";
-
 export const createServerMiddleware = (req: Request, res: Response) => {
-  const hotReloadSubscriber = getEsBuildHotReload();
-
   const styleSheet = new ServerStyleSheet();
 
   let html, styles;
@@ -36,22 +32,15 @@ export const createServerMiddleware = (req: Request, res: Response) => {
       <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>React App</title>
+        <title>MealMe App</title>
+        <link rel="stylesheet" type="text/css" href="/css/base.css" />
+        <link rel="stylesheet" type="text/css" href="/css/styles.css" />
         ${styles}
-        <script type="text/javascript" src="/client.js" async defer></script>
-        ${hotReloadSubscriber}
       </head>
       <body>
         <div id="root">${html}</div>
+        <script type="text/javascript" src="/dist/client.js" async defer></script>
       </body>
     </html>
   `);
-};
-
-const getEsBuildHotReload = () => {
-  if (!IS_DEV_MODE) {
-    return "";
-  }
-
-  return `<script type="text/event-stream">new EventSource('/esbuild').addEventListener('change', () => location.reload());</script>`;
 };
