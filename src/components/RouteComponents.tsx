@@ -8,7 +8,7 @@ export const RouteComponents = () => {
     <Router
       components={{
         home: <Home />,
-        ingredients: <Ingredients />,
+        crudIngredients: <Ingredients />,
       }}
     />
   );
